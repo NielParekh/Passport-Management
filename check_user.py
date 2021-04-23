@@ -12,6 +12,7 @@ try:
         with connection.cursor() as cursor:
             cursor.execute(show_records)
             result=cursor.fetchall()
-            print(result)
+            for i in result:
+                print(i)
 except Error as e:
     print(e)
