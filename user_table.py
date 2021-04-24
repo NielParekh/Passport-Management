@@ -30,7 +30,7 @@ try:
                                 username varchar(50),
                                 password varchar(50),
                                 email_id varchar(70),
-                                pan_card varchar(10),
+                                aadhar_card varchar(10),
                                 address varchar(100),
                                 status_admin char(10),
                                 status_police char(10))"""

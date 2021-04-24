@@ -29,7 +29,7 @@ else:
     print("These are the details of " + result[counter][2])
     print("Name : " + result[counter][2])
     print("Email Id : " + result[counter][4])
-    print("Pan Card Number : " + result[counter][5])
+    print("Aadhar Card Number : " + result[counter][5])
     print("Address : " + result[counter][6])
     print("")
     verify_choice=input("Type yes to verify the documents else type no ")
