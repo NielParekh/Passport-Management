@@ -1,0 +1,23 @@
+<html>
+    <link rel="stylesheet" href="/static/style_user_status" type="text/css">
+        <form action="/login" method="POST">
+            <div class="login">
+                <div class="login-screen">
+                    <div class="app-title">
+                        <h1>Status</h1>
+                    </div>
+                    <div class="login-form">
+                        <div class="control-group"><br>
+                            <p>Admin : </p>
+                            <p>{{admin_status}}</p>
+                            <p>Police : </p>
+                            <p>{{police_status}}</p>
+                        </div>
+                        <h3>Click continue to return to the home page</h3>
+                        <button id="continue" type="submit" name="submit_button" value="continue">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+</html>
