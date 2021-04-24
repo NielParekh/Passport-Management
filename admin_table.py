@@ -57,6 +57,7 @@ try:
             database="passport"
     )as connection:
         add_records="""INSERT INTO admins(username, password, city) VALUES
+                        ("a","a","a"),
                         ("niel","niel","chennai"),
                         ("kshitij","kshitij","delhi"),
                         ("manasa","manasa","hyderabad")"""

@@ -2,6 +2,8 @@ from flask import Flask, redirect, url_for, render_template, request
 from police_login import *
 from admin_login import *
 from user_register import *
+from find_user import *
+from police_verify import *
 
 app = Flask(__name__)
 
@@ -32,8 +34,40 @@ def police_login():
         username = request.form.get("username")
         password = request.form.get("password")
         login_status_police = police_login_func(username, password)
-        return f"{login_status_police[0]}"
+        if login_status_police[1] == 0:
+            return redirect(url_for("police_user_search"))
+        else:
+            return "invalid"
 
+
+user_details = []
+
+
+@app.route("/police_user_search", methods=["POST", "GET"])
+def police_user_search():
+    if request.method == "GET":
+        return render_template("police_user_search.html")
+        user_details.clear()
+    else:
+        user_id_user = request.form.get('user_id')
+        user_exists = find_user(user_id_user)
+        user_details.append(user_exists)
+        if user_exists[1] == 0:
+            return redirect(url_for("police_verify"))
+        else:
+            return "user does not exist"
+
+
+@app.route("/police_verify", methods=["POST", "GET"])
+def police_verify():
+    if request.method == "GET":
+        return render_template("user_details_display.html", user_id=user_details[0][0][0], username=user_details[0][0][2],address=user_details[0][0][6], email=user_details[0][0][4], aadhar=user_details[0][0][5])
+    else:
+        if request.form.get('submit_button') == "yes":
+            police_verify_status = police_verify_func(user_details[0][0][0])
+            return f"{police_verify_status}"
+        else:
+            return "NO"
 
 @app.route("/admin_login", methods=["POST", "GET"])
 def admin_login():
