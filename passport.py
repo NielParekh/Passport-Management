@@ -10,6 +10,8 @@ from check_status import *
 
 app = Flask(__name__)
 
+error_code = []
+
 
 @app.route("/")
 def hello():
@@ -40,7 +42,9 @@ def police_login():
         if login_status_police[1] == 0:
             return redirect(url_for("police_user_search"))
         else:
-            return "invalid"
+            error_code.clear()
+            error_code.append("Access Denied")
+            return redirect(url_for("throw_error"))
 
 
 user_details_police = []
@@ -58,7 +62,9 @@ def police_user_search():
         if user_exists[1] == 0:
             return redirect(url_for("police_verify"))
         else:
-            return "user does not exist"
+            error_code.clear()
+            error_code.append("User does not exist")
+            return redirect(url_for("throw_error"))
 
 
 @app.route("/police_verify", methods=["POST", "GET"])
@@ -70,9 +76,13 @@ def police_verify():
     else:
         if request.form.get('submit_button') == "yes":
             police_verify_status = police_verify_func(user_details_police[0][0][0])
-            return f"{police_verify_status}"
+            error_code.clear()
+            error_code.append(police_verify_status[0])
+            return redirect(url_for("throw_error"))
         else:
-            return "NO"
+            error_code.clear()
+            error_code.append("Details not verified")
+            return redirect(url_for("throw_error"))
 
 
 @app.route("/admin_login", methods=["POST", "GET"])
@@ -86,7 +96,9 @@ def admin_login():
         if login_status_admin[1] == 0:
             return redirect(url_for("admin_user_search"))
         else:
-            return "invalid"
+            error_code.clear()
+            error_code.append("Access Denied")
+            return redirect(url_for("throw_error"))
 
 
 user_details_admin = []
@@ -104,7 +116,9 @@ def admin_user_search():
         if user_exists[1] == 0:
             return redirect(url_for("admin_verify"))
         else:
-            return "user does not exist"
+            error_code.clear()
+            error_code.append("User does not exist")
+            return redirect(url_for("throw_error"))
 
 
 @app.route("/admin_verify", methods=["POST", "GET"])
@@ -116,9 +130,13 @@ def admin_verify():
     else:
         if request.form.get('submit_button') == "yes":
             admin_verify_status = admin_verify_func(user_details_admin[0][0][0])
-            return f"{admin_verify_status}"
+            error_code.clear()
+            error_code.append(admin_verify_status[0])
+            return redirect(url_for("throw_error"))
         else:
-            return redirect(url_for("login"))
+            error_code.clear()
+            error_code.append("Details not verified")
+            return redirect(url_for("throw_error"))
 
 
 @app.route("/user_choices", methods=["POST", "GET"])
@@ -139,12 +157,17 @@ def user_login():
         username = request.form.get("username")
         password = request.form.get("password")
         login_status_user = user_login_func(username, password)
-        if login_status_user[1] == 0:
-            user_status_details = check_status_func(username, password)
-            return render_template("user_status.html", admin_status=user_status_details[0],
-                                   police_status=user_status_details[1])
+        if request.form.get('submit_button') == "proceed":
+            return redirect(url_for("login"))
         else:
-            return "invalid"
+            if login_status_user[1] == 0:
+                user_status_details = check_status_func(username, password)
+                return render_template("user_status.html", admin_status=user_status_details[0],
+                                       police_status=user_status_details[1])
+            else:
+                error_code.clear()
+                error_code.append("Access Denied")
+                return redirect(url_for("throw_error"))
 
 
 @app.route("/user_registration", methods=["POST", "GET"])
@@ -159,7 +182,17 @@ def user_registration():
         address = request.form.get("address")
         choice = request.form.get("reg")
         registration_status_user = user_register(username, password, email, aadhar, address, choice)
-        return f"{registration_status_user}"
+        error_code.clear()
+        error_code.append(registration_status_user)
+        return redirect(url_for("throw_error"))
+
+
+@app.route("/error_screen", methods=["POST", "GET"])
+def throw_error():
+    if request.method == "GET":
+        return render_template("display_error.html", error=error_code[0])
+    else:
+        return redirect(url_for("login"))
 
 
 if __name__ == "__main__":
