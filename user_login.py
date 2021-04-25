@@ -33,5 +33,3 @@ def user_login_func(username, password):
             return "access denied", access
     else:
         return "User not found as an admin", access
-
-print(user_login_func("a","a"))

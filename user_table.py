@@ -33,7 +33,8 @@ try:
                                 aadhar_card varchar(10),
                                 address varchar(100),
                                 status_admin char(10),
-                                status_police char(10))"""
+                                status_police char(10),
+                                issue_date varchar(20))"""
         with connection.cursor() as cursor:
             cursor.execute(create_table_query)
             connection.commit()

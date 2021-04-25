@@ -7,6 +7,7 @@ from police_verify import *
 from admin_verify import *
 from user_login import *
 from check_status import *
+from update_date import *
 
 app = Flask(__name__)
 
@@ -130,13 +131,23 @@ def admin_verify():
     else:
         if request.form.get('submit_button') == "yes":
             admin_verify_status = admin_verify_func(user_details_admin[0][0][0])
-            error_code.clear()
-            error_code.append(admin_verify_status[0])
-            return redirect(url_for("throw_error"))
+            return redirect(url_for("issue_date"))
         else:
             error_code.clear()
             error_code.append("Details not verified")
             return redirect(url_for("throw_error"))
+
+
+@app.route("/issue_date", methods=["POST", "GET"])
+def issue_date():
+    if request.method == "GET":
+        return render_template("appointment.html", admin_status=user_details_admin[0][0][7])
+    else:
+        issue_date_user = request.form.get('birthday')
+        update_date(user_details_admin[0][0][0], issue_date_user)
+        error_code.clear()
+        error_code.append("Date added")
+        return redirect(url_for("throw_error"))
 
 
 @app.route("/user_choices", methods=["POST", "GET"])
@@ -163,7 +174,7 @@ def user_login():
             if login_status_user[1] == 0:
                 user_status_details = check_status_func(username, password)
                 return render_template("user_status.html", admin_status=user_status_details[0],
-                                       police_status=user_status_details[1])
+                                       police_status=user_status_details[1], appointment=user_status_details[2])
             else:
                 error_code.clear()
                 error_code.append("Access Denied")

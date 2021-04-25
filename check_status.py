@@ -24,4 +24,6 @@ def check_status_func(username, password):
             flag = 0
             break
         counter += 1
-    return i[7], i[8], flag
+    return i[7], i[8],i[9], flag
+
+print(check_status_func("a","a"))
