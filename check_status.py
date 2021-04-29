@@ -6,7 +6,7 @@ def check_status_func(username, password):
         with connect(
                 host="localhost",
                 user="root",
-                password="shrimad01",
+                password="root123",
                 database="passport"
         )as connection:
             view_records = "SELECT * FROM users"
@@ -25,5 +25,3 @@ def check_status_func(username, password):
             break
         counter += 1
     return i[7], i[8],i[9], flag
-
-print(check_status_func("a","a"))

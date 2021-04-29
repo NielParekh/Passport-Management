@@ -5,7 +5,7 @@ def update_date(user_id,date):
         with connect(
                 host="localhost",
                 user="root",
-                password="shrimad01",
+                password="root123",
                 database="passport"
         )as connection:
             update_record = f"""UPDATE users

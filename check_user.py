@@ -5,7 +5,7 @@ try:
     with connect(
               host="localhost",
               user="root",
-            password="shrimad01",
+            password="root123",
             database="passport"
     )as connection:
         show_records="SELECT * FROM  users"

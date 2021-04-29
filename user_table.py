@@ -6,7 +6,7 @@ try:
     with connect(
         host="localhost",
         user="root",
-        password="shrimad01",
+        password="root123",
         database="passport"
     )as connection:
         drop_table_query= "DROP TABLE users"
@@ -21,7 +21,7 @@ try:
     with connect(
         host="localhost",
         user="root",
-        password="shrimad01",
+        password="root123",
         database="passport"
     )as connection:
         create_table_query = """CREATE TABLE users(

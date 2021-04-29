@@ -6,7 +6,7 @@ def find_user(user_id):
         with connect(
                 host="localhost",
                 user="root",
-                password="shrimad01",
+                password="root123",
                 database="passport"
         )as connection:
             view_records = "SELECT * FROM users"

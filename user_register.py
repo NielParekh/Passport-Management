@@ -17,7 +17,7 @@ def user_register(username, password, email_id, aadhar_card, address, choice):
         with connect(
                 host="localhost",
                 user="root",
-                password="shrimad01",
+                password="root123",
                 database="passport"
         )as connection:
             view_records = "SELECT * FROM users"
@@ -40,7 +40,7 @@ def user_register(username, password, email_id, aadhar_card, address, choice):
             with connect(
                     host="localhost",
                     user="root",
-                    password="shrimad01",
+                    password="root123",
                     database="passport"
             )as connection:
                 add_records = f"INSERT INTO users(user_id,choice,username,password,email_id,aadhar_card,address,status_admin,status_police) VALUES('{uuid_user}','{choice_local}','{username_local}','{password_local}','{email_id_local}','{aadhar_card_local}','{address_local}','{status_admin}','{status_police}')"

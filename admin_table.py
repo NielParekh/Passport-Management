@@ -6,7 +6,7 @@ try:
     with connect(
         host="localhost",
         user="root",
-        password="shrimad01",
+        password="root123",
         database="passport"
     )as connection:
         drop_table_query= "DROP TABLE admins"
@@ -21,7 +21,7 @@ try:
     with connect(
         host="localhost",
         user="root",
-        password="shrimad01",
+        password="root123",
         database="passport"
     )as connection:
         create_table_query = "CREATE TABLE admins(username varchar(10), password varchar(40), city varchar(40) )"
@@ -36,7 +36,7 @@ try:
     with connect(
               host="localhost",
               user="root",
-            password="shrimad01",
+            password="root123",
             database="passport"
     )as connection:
         show_table="SHOW TABLES"
@@ -53,7 +53,7 @@ try:
     with connect(
               host="localhost",
               user="root",
-            password="shrimad01",
+            password="root123",
             database="passport"
     )as connection:
         add_records="""INSERT INTO admins(username, password, city) VALUES
@@ -72,7 +72,7 @@ try:
     with connect(
               host="localhost",
               user="root",
-            password="shrimad01",
+            password="root123",
             database="passport"
     )as connection:
         show_records="SELECT * FROM  admins"

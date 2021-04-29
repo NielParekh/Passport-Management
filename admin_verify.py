@@ -6,7 +6,7 @@ def admin_verify_func(user_id):
         with connect(
                 host="localhost",
                 user="root",
-                password="shrimad01",
+                password="root123",
                 database="passport"
         )as connection:
             view_records = "SELECT * FROM users"
@@ -30,7 +30,7 @@ def admin_verify_func(user_id):
             with connect(
                     host="localhost",
                     user="root",
-                    password="shrimad01",
+                    password="root123",
                     database="passport"
             )as connection:
                 update_record = f"""UPDATE users
